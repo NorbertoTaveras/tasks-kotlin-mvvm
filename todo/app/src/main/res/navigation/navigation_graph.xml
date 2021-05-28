@@ -26,6 +26,9 @@
             app:destination="@id/listFragment"
             app:enterAnim="@anim/from_right"
             app:exitAnim="@anim/to_left" />
+        <argument
+            android:name="currentTodo"
+            app:argType="com.norbertotaveras.todo.room.entities.TodoEntity" />
     </fragment>
     <fragment
         android:id="@+id/listFragment"
