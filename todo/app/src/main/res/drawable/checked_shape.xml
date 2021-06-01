@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="oval" android:thickness="5dp"
+            android:useLevel="false">
+            <size android:height="100dp" android:width="100dp"/>
+            <solid android:color="@color/design_default_color_primary"/>
+            <stroke android:color="#FFFFFF" android:width="2dp"/>
+            <padding android:right="10dp" android:left="10dp" android:bottom="10dp" android:top="10dp"/>
+        </shape>
+    </item>
+
+    <!--    replace with your own check image-->
+    <item android:gravity="center">
+        <bitmap android:src="@drawable/ic_round_check_circle_24"
+            android:gravity="center">
+        </bitmap>
+    </item>
+</layer-list>

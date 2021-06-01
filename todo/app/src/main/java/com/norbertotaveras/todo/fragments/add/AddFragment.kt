@@ -59,12 +59,12 @@ class AddFragment : Fragment() {
         val validation = sharedViewModel.verify(title, description)
 
         if (validation) {
-            val todo = TodoEntity(0, title, sharedViewModel.lookup(priority), description)
+            val todo = TodoEntity(0, title, sharedViewModel.lookup(priority), description, false)
             todoViewModel.insert(todo)
-            Toast.makeText(requireContext(), "Successfully added!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), getString(R.string.successfully_added), Toast.LENGTH_SHORT).show()
             findNavController().navigate(R.id.action_addFragment_to_listFragment)
         } else {
-            Toast.makeText(requireContext(), "Please fill all required fields", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), getString(R.string.required_fields), Toast.LENGTH_SHORT).show()
         }
     }
 
