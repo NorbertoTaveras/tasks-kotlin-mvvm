@@ -7,7 +7,7 @@
     <string name="title">Title</string>
     <string name="description">Description</string>
     <string name="search">Search</string>
-    <string name="sort_by">Sort By</string>
+    <string name="sort_by">Sort by priority</string>
     <string name="priority_high">Priority High</string>
     <string name="priority_low">Priority Low</string>
     <string name="priority_medium">Priority Medium</string>
@@ -17,18 +17,32 @@
     <string name="delete">Delete</string>
     <string name="title_placeholder">Title</string>
     <string name="description_placeholder">description</string>
-    <string name="successfully_updated">Successfully Updated!</string>
-    <string name="successfully_added">Successfully Added!</string>
+    <string name="successfully_updated">Tasks Successfully Updated</string>
+    <string name="successfully_added">Task Successfully Added</string>
     <string name="successfully_removed">Successfully Removed - %1$s</string>
-    <string name="successfully_removed_all">Successfully Removed All Todos</string>
+    <string name="task_successfully_removed"> Task Removed</string>
+    <string name="successfully_removed_all">Successfully Removed All Tasks</string>
     <string name="required_fields">Please fill all required fields</string>
     <string name="yes">Yes</string>
     <string name="delete_prompt">Delete \'%1$s\'?</string>
     <string name="confirm_prompt">Are you sure you want to remove \'%1$s\'?</string>
-    <string name="removed_all_todos_prompt">Remove All Todos?</string>
-    <string name="remove_all_confirm_prompt">Are you sure you want to be remove all todos?</string>
-    <string name="deleted">Deleted \'%1$s\'</string>
+    <string name="removed_all_todos_prompt">Remove All Tasks?</string>
+    <string name="remove_all_confirm_prompt">Are you sure you want to be remove all tasks?</string>
+    <string name="deleted">Removed \'%1$s\'</string>
     <string name="undo">Undo</string>
+    <string name="priority_hint">Priority</string>
+    <string name="required">Required</string>
+    <string name="title_required">Title*</string>
+    <string name="required_asterisk">*Required</string>
+    <string name="description_required">Description*</string>
+    <string name="error_title_field_required">Error: Title field required</string>
+    <string name="error_description_field_required">Error: Description field required</string>
+    <string name="sort_by_name">Sort by name</string>
+    <string name="sort_by_date_created">Sort by date created</string>
+    <string name="hide_completed">Hide completed</string>
+    <string name="delete_all_completed">Delete all completed</string>
+    <string name="date_created_value">*Date Created: %1$s</string>
+    <string name="no_tasks_available">No Tasks Available</string>
     <string-array name="priorities">
         <item>High</item>
         <item>Medium</item>
