@@ -3,7 +3,6 @@ package com.norbertotaveras.todo.bindings
 import android.os.Build
 import android.util.Log
 import android.view.View
-import android.widget.Spinner
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter

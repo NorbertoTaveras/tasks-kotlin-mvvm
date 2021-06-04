@@ -1,13 +1,9 @@
 package com.norbertotaveras.todo.fragments.add
 
 import android.os.Bundle
-import android.text.TextUtils
 import android.util.Log
 import android.view.*
 import android.widget.ArrayAdapter
-import android.widget.EditText
-import android.widget.Spinner
-import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
@@ -17,7 +13,6 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.norbertotaveras.todo.R
 import com.norbertotaveras.todo.databinding.FragmentAddBinding
-import com.norbertotaveras.todo.models.Priority
 import com.norbertotaveras.todo.room.entities.TodoEntity
 import com.norbertotaveras.todo.utils.createSnackBar
 import com.norbertotaveras.todo.utils.hideKeyboard
