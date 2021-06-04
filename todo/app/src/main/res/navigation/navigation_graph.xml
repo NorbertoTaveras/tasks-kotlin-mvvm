@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/addFragment"
         android:name="com.norbertotaveras.todo.fragments.add.AddFragment"
-        android:label="Add Todo"
+        android:label="Add Task"
         tools:layout="@layout/fragment_add">
         <action
             android:id="@+id/action_addFragment_to_listFragment"
@@ -21,7 +21,7 @@
     <fragment
         android:id="@+id/updateFragment"
         android:name="com.norbertotaveras.todo.fragments.update.UpdateFragment"
-        android:label="fragment_update">
+        android:label="Update Task">
         <action
             android:id="@+id/action_updateFragment_to_listFragment"
             app:destination="@id/listFragment"
@@ -36,7 +36,7 @@
     <fragment
         android:id="@+id/listFragment"
         android:name="com.norbertotaveras.todo.fragments.list.ListFragment"
-        android:label="Todos"
+        android:label="Tasks"
         tools:layout="@layout/fragment_list">
         <action
             android:id="@+id/action_listFragment_to_updateFragment"
