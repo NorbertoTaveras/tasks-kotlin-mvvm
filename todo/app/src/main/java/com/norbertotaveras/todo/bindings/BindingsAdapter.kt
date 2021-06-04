@@ -15,6 +15,7 @@ import com.norbertotaveras.todo.R
 import com.norbertotaveras.todo.fragments.list.ListFragmentDirections
 import com.norbertotaveras.todo.models.Priority
 import com.norbertotaveras.todo.room.entities.TodoEntity
+import com.tiper.MaterialSpinner
 
 class BindingsAdapter {
     companion object {
@@ -41,11 +42,11 @@ class BindingsAdapter {
 
         @BindingAdapter("android:parsePriority")
         @JvmStatic
-        fun parsePriority(view: Spinner, priority: Priority) {
+        fun parsePriority(view: MaterialSpinner, priority: Priority) {
             when (priority) {
-                Priority.HIGH -> {view.setSelection(0)}
-                Priority.MEDIUM -> {view.setSelection(1)}
-                Priority.LOW -> {view.setSelection(2)}
+                Priority.HIGH -> {view.selection = 0}
+                Priority.MEDIUM -> {view.selection = 1}
+                Priority.LOW -> {view.selection = 2}
             }
         }
 
