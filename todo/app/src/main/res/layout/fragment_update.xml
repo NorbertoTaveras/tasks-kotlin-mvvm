@@ -12,10 +12,10 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="24dp"
+        android:padding="16dp"
         tools:context=".fragments.update.UpdateFragment">
 
-        <EditText
+        <!--<EditText
             android:id="@+id/current_title_et"
             android:layout_width="0dp"
             android:layout_height="60dp"
@@ -28,9 +28,33 @@
             android:text="@{args.currentTodo.title}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent" /> -->
 
-        <Spinner
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/current_title_et_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/title_required"
+            app:errorEnabled="true"
+            app:helperText="@string/required_asterisk"
+            app:endIconMode="clear_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/current_title_et"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:paddingStart="24dp"
+                android:paddingEnd="24dp"
+                android:text="@{args.currentTodo.title}"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!--<Spinner
             android:id="@+id/current_priority_spinner"
             android:layout_width="0dp"
             android:layout_height="60dp"
@@ -43,9 +67,23 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/current_title_et" />
+            app:layout_constraintTop_toBottomOf="@+id/current_title_et_layout" /> -->
 
-        <EditText
+        <com.tiper.MaterialSpinner
+            android:id="@+id/current_priority_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/priority_hint"
+            android:layout_marginTop="8dp"
+            app:helperText="Priority (optional)"
+            android:parsePriority="@{args.currentTodo.priority}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/current_title_et_layout"
+            app:layout_constraintHorizontal_bias="0.5"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"/>
+
+        <!--<EditText
             android:id="@+id/current_description_et"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -63,6 +101,43 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/current_priority_spinner" />
+            app:layout_constraintTop_toBottomOf="@+id/current_priority_spinner" /> -->
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/current_description_et_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/description_required"
+            android:gravity="top|start"
+            android:layout_marginTop="8dp"
+            app:errorEnabled="true"
+            app:endIconMode="clear_text"
+            app:counterEnabled="true"
+            app:helperText="@string/required_asterisk"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/current_priority_spinner"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/current_description_et"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textMultiLine"
+                android:paddingStart="24dp"
+                android:gravity="top|start"
+                android:paddingEnd="24dp"
+                android:text="@{args.currentTodo.description}"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/date_created"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/current_description_et_layout"
+            tools:text="*Date created:" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
