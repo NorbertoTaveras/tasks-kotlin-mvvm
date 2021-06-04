@@ -4,6 +4,7 @@ plugins {
     id 'kotlin-kapt'
     id 'kotlin-parcelize'
     id 'androidx.navigation.safeargs.kotlin'
+    id 'dagger.hilt.android.plugin'
 }
 
 
@@ -49,6 +50,9 @@ dependencies {
     def room_version = "2.3.0"
     def lifecycle_version = "2.3.1"
     def nav_version = "2.3.5"
+    def dataStoreVersion = "1.0.0-beta01"
+    def hiltAndroidXVersion = "1.0.0-alpha03"
+    def hiltVersion = "2.35"
 
     // standardized kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
@@ -77,17 +81,30 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
     implementation("androidx.lifecycle:lifecycle-common-java8:$lifecycle_version")
     implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
+
     // coroutines
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.1")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.1")
 
-    // data binding
-    //kapt("com.android.databinding:compiler:3.2.0-alpha10")
-    //kapt "com.android.databinding:compiler:3.1.4"
-    //kapt("androidx.databinding:databinding-common:4.2.1")
+    // data store
+    implementation("androidx.datastore:datastore:1.0.0-beta01")
+    implementation "androidx.datastore:datastore-preferences:$dataStoreVersion"
 
     // recyclerview animator
     implementation 'jp.wasabeef:recyclerview-animators:4.0.2'
+
+    // spinner
+    implementation 'com.github.tiper:MaterialSpinner:1.4.2'
+
+    // fragment
+    implementation 'androidx.fragment:fragment-ktx:1.4.0-alpha02'
+
+    // dagger hilt
+    implementation "com.google.dagger:hilt-android:$hiltVersion"
+    implementation "androidx.hilt:hilt-lifecycle-viewmodel:$hiltAndroidXVersion"
+    kapt "com.google.dagger:hilt-android-compiler:$hiltVersion"
+    kapt "androidx.hilt:hilt-compiler:$hiltAndroidXVersion"
 
     // test
     testImplementation 'junit:junit:4.13.2'
