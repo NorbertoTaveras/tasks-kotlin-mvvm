@@ -4,19 +4,26 @@ import android.app.AlertDialog
 import android.os.Bundle
 import android.util.Log
 import android.view.*
-import android.widget.EditText
-import android.widget.Spinner
-import android.widget.Toast
+import android.widget.ArrayAdapter
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.google.android.material.snackbar.Snackbar
 import com.norbertotaveras.todo.R
 import com.norbertotaveras.todo.databinding.FragmentUpdateBinding
 import com.norbertotaveras.todo.room.entities.TodoEntity
+import com.norbertotaveras.todo.utils.createSnackBar
+import com.norbertotaveras.todo.utils.hideKeyboard
 import com.norbertotaveras.todo.viewmodels.SharedViewModel
 import com.norbertotaveras.todo.viewmodels.TodoViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
 
+@AndroidEntryPoint
 class UpdateFragment : Fragment() {
 
     private val args by navArgs<UpdateFragmentArgs>()
@@ -33,14 +40,33 @@ class UpdateFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        //val view = inflater.inflate(R.layout.fragment_update, container, false)
-
+    ): View {
         _binding = FragmentUpdateBinding.inflate(inflater, container, false)
         binding.args = args
-        binding.currentPrioritySpinner.onItemSelectedListener = sharedViewModel.listener
 
+        val adapter = ArrayAdapter.createFromResource(requireContext(),
+            R.array.priorities,
+            android.R.layout.simple_spinner_dropdown_item)
+
+        binding.currentPrioritySpinner.adapter = adapter
+        binding.currentPrioritySpinner.onItemSelectedListener = sharedViewModel.tiper
+        binding.dateCreated.text = resources.getString(R.string.date_created_value, args.currentTodo.createdDateFormatted)
         setHasOptionsMenu(true)
+        hideKeyboard(requireActivity())
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            todoViewModel.updateDeleteTaskEvent.collect { event ->
+                when (event) {
+                    is TodoViewModel.UpdateDeleteTaskEvent.NavigateBackWithDeleteResult -> {
+                        setFragmentResult("delete_request", bundleOf("delete_result" to event.result))
+                        findNavController().navigate(R.id.action_updateFragment_to_listFragment)
+                    }
+                    is TodoViewModel.UpdateDeleteTaskEvent.NavigateBackWithUpdateResult -> {
+                        setFragmentResult("update_request", bundleOf("update_result" to event.result))
+                        findNavController().navigate(R.id.action_updateFragment_to_listFragment)
+                    }
+                }
+            }
+        }
         return binding.root
     }
 
@@ -57,15 +83,24 @@ class UpdateFragment : Fragment() {
         val title = binding.currentTitleEt.text.toString()
         val description = binding.currentDescriptionEt.text.toString()
         val priority = binding.currentPrioritySpinner.selectedItem.toString()
-
         val validation = sharedViewModel.verify(title, description)
+
+        when (title.isEmpty()) {
+            true -> {binding.currentTitleEtLayout.error = getString(R.string.error_title_field_required)}
+            false -> {binding.currentTitleEtLayout.error = null}
+        }
+
+        when (description.isEmpty()) {
+            true -> {binding.currentDescriptionEtLayout.error = getString(R.string.error_description_field_required)}
+            false -> {binding.currentDescriptionEtLayout.error = null}
+        }
+
         if (validation) {
             val todo = TodoEntity(args.currentTodo.id, title, sharedViewModel.lookup(priority), description)
             todoViewModel.update(todo)
-            Toast.makeText(requireContext(),getString(R.string.successfully_updated), Toast.LENGTH_SHORT).show()
-            findNavController().navigate(R.id.action_updateFragment_to_listFragment)
+            hideKeyboard(requireActivity())
         } else {
-            Toast.makeText(requireContext(),getString(R.string.required_fields), Toast.LENGTH_SHORT).show()
+            createSnackBar(requireView(), R.string.required_fields, Snackbar.LENGTH_SHORT)
         }
     }
 
@@ -73,8 +108,6 @@ class UpdateFragment : Fragment() {
         val builder = AlertDialog.Builder(requireContext())
         builder.setPositiveButton(getString(R.string.yes)) {_,_ ->
             todoViewModel.delete(args.currentTodo)
-            Toast.makeText(requireContext(), resources.getString(R.string.successfully_removed, args.currentTodo.title), Toast.LENGTH_SHORT).show()
-            findNavController().navigate(R.id.action_updateFragment_to_listFragment)
         }
         builder.setNegativeButton("No") {_,_ -> }
         builder.setTitle(resources.getString(R.string.delete_prompt, args.currentTodo.title))
