@@ -7,9 +7,12 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 import com.norbertotaveras.todo.R
 import com.norbertotaveras.todo.models.Priority
 import com.norbertotaveras.todo.room.entities.TodoEntity
+import com.tiper.MaterialSpinner
 
 class SharedViewModel(application: Application): AndroidViewModel(application) {
 
@@ -32,8 +35,29 @@ class SharedViewModel(application: Application): AndroidViewModel(application) {
         }
     }
 
+    val tiper: MaterialSpinner.OnItemSelectedListener = object :
+        MaterialSpinner.OnItemSelectedListener {
+        override fun onItemSelected(parent: MaterialSpinner,
+                                    view: View?,
+                                    position: Int,
+                                    id: Long) {
+            when (position) {
+                0 -> {(parent.getChildAt(0) as? TextView)?.setTextColor(ContextCompat.getColor(application, R.color.red))}
+                1 -> {(parent.getChildAt(0) as? TextView)?.setTextColor(ContextCompat.getColor(application, R.color.yellow))}
+                2 -> {(parent.getChildAt(0) as? TextView)?.setTextColor(ContextCompat.getColor(application, R.color.green))}
+            }
+        }
+
+        override fun onNothingSelected(parent: MaterialSpinner) {
+        }
+    }
+
     fun verify(title: String, description: String): Boolean {
         return !(title.isEmpty() || description.isEmpty())
+    }
+
+    fun verifyUI(content: String): Boolean {
+        return content.isNotEmpty()
     }
 
     fun lookup(priority: String): Priority {
