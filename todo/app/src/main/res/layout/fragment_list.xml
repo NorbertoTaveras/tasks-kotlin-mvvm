@@ -13,11 +13,14 @@
             type="com.norbertotaveras.todo.viewmodels.TodoViewModel" />
     </data>
 
-    <!--<androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/coordinator"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/listLayout"
-        tools:context=".fragments.list.ListFragment">
+        android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
@@ -25,67 +28,41 @@
             android:layout_height="match_parent"
             android:paddingTop="8dp"
             android:clipToPadding="false"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/floatingActionButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="24dp"
-            android:layout_marginBottom="24dp"
-            android:clickable="true"
-            android:focusable="true"
-            android:navigateToAddFragment="@{true}"
-            android:backgroundTint="@color/design_default_color_primary"
-            android:src="@drawable/ic_round_add_24"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:contentDescription="@string/floatingactionbutton" />
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
         <ImageView
             android:id="@+id/warning_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_round_warning_24"
-            android:visibility="invisible"
+            android:src="@drawable/ic_empty_box"
+            android:visibility="visible"
             android:emptyViews="@{sharedViewModel.empty}"
+            android:layout_gravity="center"
+            app:tint="@color/lightGray"
             app:layout_constraintBottom_toBottomOf="@+id/recyclerView"
-            app:layout_constraintEnd_toEndOf="@+id/recyclerView"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/recyclerView"
-            app:layout_constraintTop_toTopOf="@+id/recyclerView"
-            app:layout_constraintVertical_bias="0.37"
-            app:tint="@color/lightGray" />
+            app:layout_constraintTop_toTopOf="@+id/recyclerView"/>
 
         <TextView
             android:id="@+id/warning_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/no_data"
+            android:text="@string/no_tasks_available"
             android:alpha="0.5"
             android:textSize="16sp"
-            android:visibility="invisible"
+            android:visibility="visible"
             android:emptyViews="@{sharedViewModel.empty}"
+            android:layout_gravity="center_vertical|center_horizontal"
+            app:layout_anchorGravity="bottom|center"
+            app:layout_anchor="@id/warning_image"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/recyclerView"
             app:layout_constraintTop_toBottomOf="@+id/warning_image" />
-    </androidx.constraintlayout.widget.ConstraintLayout> -->
-
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:id="@+id/coordinator"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingTop="8dp"
-            android:clipToPadding="false"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/delete_all_floating_button"
@@ -97,7 +74,7 @@
             android:clickable="true"
             android:focusable="true"
             android:src="@drawable/ic_round_delete_forever_24"
-            android:visibility="invisible"/>
+            android:visibility="gone"/>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/add_floating_button"
@@ -110,7 +87,7 @@
             android:src="@drawable/ic_round_edit_24"
             android:navigateToAddFragment="@{true}"
             android:focusable="true"
-            android:visibility="invisible"/>
+            android:visibility="gone"/>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/main_floating_button"
@@ -125,30 +102,5 @@
             android:src="@drawable/ic_round_add_24"
             android:layout_gravity="bottom|end"
             android:contentDescription="@string/floatingactionbutton" />
-
-        <ImageView
-            android:id="@+id/warning_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_empty_box"
-            android:visibility="visible"
-            android:emptyViews="@{sharedViewModel.empty}"
-            android:layout_gravity="center"
-            app:tint="@color/lightGray" />
-
-        <TextView
-            android:id="@+id/warning_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/no_tasks_available"
-            android:alpha="0.5"
-            android:textSize="16sp"
-            android:visibility="visible"
-            android:emptyViews="@{sharedViewModel.empty}"
-            android:layout_gravity="center_vertical|center_horizontal"
-            app:layout_anchorGravity="bottom|center"
-            app:layout_anchor="@id/warning_image"
-            android:paddingTop="20dp"/>
-
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

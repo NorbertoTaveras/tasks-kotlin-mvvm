@@ -60,6 +60,8 @@ class ListFragment : Fragment(), SearchView.OnQueryTextListener, TodosAdapter.On
     private val binding get() = _binding!!
 
     private var isClicked: Boolean = false
+    private var isReorderClicked: Boolean = false
+
     private var currentQuery: String? = null
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -185,7 +187,6 @@ class ListFragment : Fragment(), SearchView.OnQueryTextListener, TodosAdapter.On
         warningImage = binding.warningImage
         warningText = binding.warningText
 
-        binding.addFloatingButton.setOnClickListener(this)
         binding.mainFloatingButton.setOnClickListener(this)
         binding.deleteAllFloatingButton.setOnClickListener(this)
 
@@ -238,12 +239,12 @@ class ListFragment : Fragment(), SearchView.OnQueryTextListener, TodosAdapter.On
 
     override fun onClick(v: View?) {
         when (v?.id) {
-            R.id.main_floating_button -> {onMainButtonClicked()}
+            R.id.main_floating_button -> {onMainButtonClick()}
             R.id.delete_all_floating_button -> {deleteAll()}
         }
     }
 
-    private fun onMainButtonClicked() {
+    private fun onMainButtonClick() {
         setVisibility(isClicked)
         setAnimation(isClicked)
         isClicked = !isClicked
