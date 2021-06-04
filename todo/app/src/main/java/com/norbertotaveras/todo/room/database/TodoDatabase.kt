@@ -6,7 +6,7 @@ import com.norbertotaveras.todo.room.converters.PriorityConverter
 import com.norbertotaveras.todo.room.daos.TodoDao
 import com.norbertotaveras.todo.room.entities.TodoEntity
 
-@Database(entities = [TodoEntity::class], version = 2, exportSchema = false)
+@Database(entities = [TodoEntity::class], version = 3, exportSchema = false)
 @TypeConverters(PriorityConverter::class)
 abstract class TodoDatabase: RoomDatabase() {
 
