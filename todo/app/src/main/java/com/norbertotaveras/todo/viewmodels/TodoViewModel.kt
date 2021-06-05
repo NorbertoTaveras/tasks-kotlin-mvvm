@@ -111,6 +111,12 @@ class TodoViewModel @Inject constructor(application: Application, private val pr
         }
     }
 
+    fun onSpanCountClick(spanCount: Int) {
+        viewModelScope.launch {
+            preferencesManager.updateSpanCount(spanCount)
+        }
+    }
+
     fun onTaskCheckedChanged(todo: TodoEntity, isChecked: Boolean) {
         viewModelScope.launch(Dispatchers.IO) {
             repository.update(todo.copy(completed = isChecked))

@@ -47,6 +47,7 @@
     <string name="low">Low</string>
     <string name="medium">Medium</string>
     <string name="high">High</string>
+    <string name="view_type">view type</string>
     <string-array name="priorities">
         <item>High</item>
         <item>Medium</item>

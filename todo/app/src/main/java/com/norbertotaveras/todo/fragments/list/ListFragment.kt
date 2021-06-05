@@ -13,9 +13,7 @@ import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.ItemTouchHelper
-import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import androidx.recyclerview.widget.*
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.norbertotaveras.todo.R
@@ -35,6 +33,9 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
+const val SPAN_COUNT_ONE = 1
+const val SPAN_COUNT_TWO = 2
+
 @AndroidEntryPoint
 class ListFragment : Fragment(), SearchView.OnQueryTextListener, TodosAdapter.OnTodoHolderEventsListener,
     View.OnClickListener {
@@ -45,7 +46,7 @@ class ListFragment : Fragment(), SearchView.OnQueryTextListener, TodosAdapter.On
     private lateinit var warningText: TextView
     private lateinit var searchMenuItem: MenuItem
     private lateinit var searchView: SearchView
-    private lateinit var layoutType: RecyclerView.LayoutManager
+    private lateinit var layoutType: StaggeredGridLayoutManager
 
     private val adapter: TodosAdapter by lazy { TodosAdapter(this) }
     private val todoViewModel: TodoViewModel by viewModels()
@@ -60,8 +61,6 @@ class ListFragment : Fragment(), SearchView.OnQueryTextListener, TodosAdapter.On
     private val binding get() = _binding!!
 
     private var isClicked: Boolean = false
-    private var isReorderClicked: Boolean = false
-
     private var currentQuery: String? = null
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -145,6 +144,10 @@ class ListFragment : Fragment(), SearchView.OnQueryTextListener, TodosAdapter.On
                 todoViewModel.onHideCompletedClick(item.isChecked)
             }
             R.id.delete_all_completed -> {deleteCompletedTasks()}
+            R.id.view_type -> {
+                switchLayout()
+                switchIcon(item)
+            }
             else -> {super.onOptionsItemSelected(item)}
 
         }
@@ -192,7 +195,7 @@ class ListFragment : Fragment(), SearchView.OnQueryTextListener, TodosAdapter.On
 
         recyclerview = binding.recyclerView
         recyclerview.adapter = adapter
-        layoutType = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+        layoutType = StaggeredGridLayoutManager(SPAN_COUNT_TWO, StaggeredGridLayoutManager.VERTICAL)
         recyclerview.layoutManager = layoutType
         recyclerview.itemAnimator = LandingAnimator().apply {
             addDuration = 300
@@ -275,6 +278,21 @@ class ListFragment : Fragment(), SearchView.OnQueryTextListener, TodosAdapter.On
                 binding.addFloatingButton.startAnimation(toBottom)
                 binding.mainFloatingButton.startAnimation(rotateClose)
             }
+        }
+    }
+
+    private fun switchLayout() {
+        when (layoutType.spanCount) {
+            SPAN_COUNT_TWO -> { layoutType.spanCount = SPAN_COUNT_ONE }
+            SPAN_COUNT_ONE -> { layoutType.spanCount = SPAN_COUNT_TWO }
+        }
+        adapter.notifyItemChanged(0, adapter.itemCount)
+    }
+
+    private fun switchIcon(item: MenuItem) {
+        when (layoutType.spanCount) {
+            SPAN_COUNT_TWO -> item.setIcon(R.drawable.ic_round_grid_view_24)
+            SPAN_COUNT_ONE -> item.setIcon(R.drawable.ic_round_view_list_24)
         }
     }
 

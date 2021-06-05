@@ -45,4 +45,10 @@
         android:id="@+id/delete_all_completed"
         android:title="@string/delete_all_completed"
         app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/view_type"
+        android:icon="@drawable/ic_round_grid_view_24"
+        android:title="@string/view_type"
+        app:showAsAction="ifRoom"/>
 </menu>

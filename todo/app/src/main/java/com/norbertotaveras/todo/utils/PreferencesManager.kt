@@ -15,7 +15,7 @@ import javax.inject.Singleton
 val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "user_preferences")
 private const val TAG = "PreferencesManager"
 enum class SortOrder { BY_NAME, BY_DATE, BY_HIGH, BY_MEDIUM, BY_LOW }
-data class FilterPreferences(val sortOrder: SortOrder, val hideCompleted: Boolean)
+data class FilterPreferences(val sortOrder: SortOrder, val hideCompleted: Boolean, val spanCount: Int)
 
 @Singleton
 class PreferencesManager @Inject constructor(@ApplicationContext private val context: Context) {
@@ -34,7 +34,8 @@ class PreferencesManager @Inject constructor(@ApplicationContext private val con
                 preferences[PreferencesKeys.SORT_ORDER] ?: SortOrder.BY_HIGH.name
             )
             val hideCompleted = preferences[PreferencesKeys.HIDE_COMPLETED] ?: false
-            FilterPreferences(sortOrder, hideCompleted)
+            val spanCount = preferences[PreferencesKeys.SPAN_COUNT] ?: 2
+            FilterPreferences(sortOrder, hideCompleted, spanCount)
         }
 
     suspend fun updateSortOrder(sortOrder: SortOrder) {
@@ -49,8 +50,15 @@ class PreferencesManager @Inject constructor(@ApplicationContext private val con
         }
     }
 
+    suspend fun updateSpanCount(spanCount: Int) {
+        context.dataStore.edit { preferences ->
+            preferences[PreferencesKeys.SPAN_COUNT] = spanCount
+        }
+    }
+
     private object PreferencesKeys {
         val SORT_ORDER = stringPreferencesKey("sort_order")
         val HIDE_COMPLETED = booleanPreferencesKey("hide_completed")
+        val SPAN_COUNT = intPreferencesKey("span_count")
     }
 }
