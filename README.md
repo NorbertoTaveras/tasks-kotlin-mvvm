@@ -14,7 +14,7 @@
 </br>
 
 <p align="center">
-    <img src ="https://github.com/NorbertoTaveras/flixiago-java/blob/main/assets/flixiago_logo.png" width="40%"/>
+    <img src ="" width="40%"/>
 </p>
 
 ## Download
@@ -35,24 +35,19 @@ Go to the [Releases](https://github.com/NorbertoTaveras/todo-kotlin/releases) to
 
 ## MAD Score
 <img src="/assets/summary.png">
+<img src="/assets/kotlin.png">
+
 ## Demonstration
 
 ### Screenshots
 <p>
-    <img src="/assets/screenshot1.png" width="25%"/>
-    <img src="/assets/screenshot2.png" width="25%"/>
-    <img src="/assets/screenshot3.png" width="25%"/>
+    <img src="/assets/screenshot_1.png" width="25%"/>
+    <img src="/assets/screenshot_2.png" width="25%"/>
+    <img src="/assets/screenshot_3.png" width="25%"/>
 </p>
 
 <p>
-    <img src="/assets/screenshot4.png" width="25%"/>
-    <img src="/assets/screenshot5.png" width="25%"/>
-    <img src="/assets/screenshot6.png" width="25%"/>
-</p>
-
-
-<p>
-    <img src="/assets/screenshot7.png" width="25%"/>
-    <img src="/assets/screenshot8.png" width="25%"/>
-    <img src="/assets/screenshot9.png" width="25%"/>
+    <img src="/assets/screenshot_4.png" width="25%"/>
+    <img src="/assets/screenshot_5.png" width="25%"/>
+    <img src="/assets/screenshot_6.png" width="25%"/>
 </p>
