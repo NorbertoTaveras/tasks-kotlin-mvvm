@@ -14,7 +14,7 @@
 </br>
 
 <p align="center">
-    <img src ="" width="40%"/>
+    <img src ="https://github.com/NorbertoTaveras/todo-kotlin/blob/main/assets/tasks_github_icon.png" width="40%"/>
 </p>
 
 ## Download
