@@ -34,8 +34,7 @@ Go to the [Releases](https://github.com/NorbertoTaveras/todo-kotlin/releases) to
 - [Material-Components](https://github.com/material-components/material-components-android) - material design componets, such as cardview, etc.
 
 ## MAD Score
-![summary](https://user-images.githubusercontent.com/24237865/102366914-84f6b000-3ffc-11eb-8d49-b20694239782.png)
-![kotlin](https://user-images.githubusercontent.com/24237865/102366932-8a53fa80-3ffc-11eb-8131-fd6745a6f079.png)
+<img src="/assets/summary.png">
 ## Demonstration
 
 ### Screenshots
