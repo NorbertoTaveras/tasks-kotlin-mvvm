@@ -138,7 +138,7 @@ class ListFragment : Fragment(), SearchView.OnQueryTextListener, TodosAdapter.On
             R.id.menu_priority_low -> { todoViewModel.onSortOrderSelected(SortOrder.BY_LOW) }
             R.id.menu_priority_medium -> { todoViewModel.onSortOrderSelected(SortOrder.BY_MEDIUM) }
             R.id.menu_priority_high -> { todoViewModel.onSortOrderSelected(SortOrder.BY_HIGH) }
-            R.id.sort_by_name -> { todoViewModel.onSortOrderSelected(SortOrder.BY_NAME) }
+            R.id.sort_by_title -> { todoViewModel.onSortOrderSelected(SortOrder.BY_NAME) }
             R.id.sort_by_date_created -> { todoViewModel.onSortOrderSelected(SortOrder.BY_DATE) }
             R.id.hide_completed -> {
                 item.isChecked = !item.isChecked

@@ -16,20 +16,20 @@
             <menu>
                 <item
                     android:id="@+id/menu_priority_low"
-                    android:title="@string/priority_low"/>
+                    android:title="@string/low"/>
                 <item
                     android:id="@+id/menu_priority_medium"
-                    android:title="@string/priority_medium"/>
+                    android:title="@string/medium"/>
                 <item
                     android:id="@+id/menu_priority_high"
-                    android:title="@string/priority_high" />
+                    android:title="@string/high" />
             </menu>
         </item>
     </group>
 
     <item
-        android:id="@+id/sort_by_name"
-        android:title="@string/sort_by_name"/>
+        android:id="@+id/sort_by_title"
+        android:title="@string/sort_by_title"/>
 
     <item
         android:id="@+id/sort_by_date_created"
@@ -45,9 +45,4 @@
         android:id="@+id/delete_all_completed"
         android:title="@string/delete_all_completed"
         app:showAsAction="never"/>
-
-    <!--<item android:id="@+id/menu_delete_all"
-        android:title="@string/delete_all"
-        android:icon="@drawable/ic_round_delete_forever_24"
-        app:showAsAction="ifRoom"/> -->
 </menu>

@@ -43,6 +43,10 @@
     <string name="delete_all_completed">Delete all completed</string>
     <string name="date_created_value">*Date Created: %1$s</string>
     <string name="no_tasks_available">No Tasks Available</string>
+    <string name="sort_by_title">Sort by title</string>
+    <string name="low">Low</string>
+    <string name="medium">Medium</string>
+    <string name="high">High</string>
     <string-array name="priorities">
         <item>High</item>
         <item>Medium</item>
