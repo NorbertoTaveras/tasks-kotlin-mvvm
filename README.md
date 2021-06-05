@@ -18,7 +18,7 @@
 </p>
 
 ## Download
-Go to the [Releases](https://github.com/NorbertoTaveras/todo-kotlin/releases) to download the latest APK.
+Go to the [Releases](https://github.com/NorbertoTaveras/tasks-kotlin-mvvm/releases) to download the latest APK.
 
 ## Tech Stack & Open-Source Libraries
 - Mininum SDK Level 23
