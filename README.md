@@ -37,7 +37,7 @@ Go to the [Releases](https://github.com/NorbertoTaveras/tasks-kotlin-mvvm/releas
 <img src="/assets/summary.png">
 <img src="/assets/kotlin.png">
 
-### Screenshots
+## Screenshots
 <p>
     <img src="/assets/screenshot_1.png" width="25%"/>
     <img src="/assets/screenshot_2.png" width="25%"/>
