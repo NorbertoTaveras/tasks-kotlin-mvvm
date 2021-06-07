@@ -12,6 +12,7 @@ import com.google.android.material.textfield.TextInputLayout
 import com.norbertotaveras.todo.R
 import com.norbertotaveras.todo.models.Priority
 import com.norbertotaveras.todo.room.entities.TodoEntity
+import com.norbertotaveras.todo.utils.PreferencesManager
 import com.tiper.MaterialSpinner
 
 class SharedViewModel(application: Application): AndroidViewModel(application) {

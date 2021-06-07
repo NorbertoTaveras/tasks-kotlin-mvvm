@@ -47,6 +47,13 @@
     <string name="medium">Medium</string>
     <string name="high">High</string>
     <string name="view_type">view type</string>
+    <string name="dismiss_bottom_sheet">Dismiss Bottom Sheet</string>
+    <string name="set_list_sort_order">Set list sort order</string>
+    <string name="anything_to_add">Anything to add?</string>
+    <string name="a_fresh_start">A fresh start</string>
+    <string name="confirm_delete_all_completed_tasks">Are you sure would like to delete all completed tasks?</string>
+    <string name="confirm_deletion_prompt">Confirm Deletion</string>
+    <string name="no">No</string>
     <string-array name="priorities">
         <item>High</item>
         <item>Medium</item>

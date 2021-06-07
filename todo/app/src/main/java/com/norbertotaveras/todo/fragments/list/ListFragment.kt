@@ -19,6 +19,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.norbertotaveras.todo.R
 import com.norbertotaveras.todo.adapters.TodosAdapter
 import com.norbertotaveras.todo.databinding.FragmentListBinding
+import com.norbertotaveras.todo.fragments.bottomsheet.BottomSheetFragment
 import com.norbertotaveras.todo.room.entities.TodoEntity
 import com.norbertotaveras.todo.utils.SortOrder
 import com.norbertotaveras.todo.utils.createSnackBar
@@ -30,7 +31,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import jp.wasabeef.recyclerview.animators.LandingAnimator
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
 const val SPAN_COUNT_ONE = 1
@@ -63,6 +63,8 @@ class ListFragment : Fragment(), SearchView.OnQueryTextListener, TodosAdapter.On
     private var isClicked: Boolean = false
     private var currentQuery: String? = null
 
+    private lateinit var bottomSheetFragment: BottomSheetFragment
+
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.list_fragment_menu, menu)
         searchMenuItem = menu.findItem(R.id.menu_search)
@@ -77,8 +79,8 @@ class ListFragment : Fragment(), SearchView.OnQueryTextListener, TodosAdapter.On
         }
 
         viewLifecycleOwner.lifecycleScope.launch {
-            menu.findItem(R.id.hide_completed).isChecked =
-                todoViewModel.preferencesFlow.first().hideCompleted
+            /*menu.findItem(R.id.hide_completed).isChecked =
+                todoViewModel.preferencesFlow.first().hideCompleted */
         }
     }
 
@@ -101,6 +103,29 @@ class ListFragment : Fragment(), SearchView.OnQueryTextListener, TodosAdapter.On
         setHasOptionsMenu(true)
 
         hideKeyboard(requireActivity())
+
+        childFragmentManager.setFragmentResultListener(
+            "requestKey", viewLifecycleOwner) {_, bundle ->
+            when {
+                bundle.getString("high_result") == SortOrder.BY_HIGH.name -> {
+                    todoViewModel.onSortOrderSelected(SortOrder.BY_HIGH) }
+                bundle.getString("medium_result") == SortOrder.BY_MEDIUM.name -> {
+                    todoViewModel.onSortOrderSelected(SortOrder.BY_MEDIUM) }
+                bundle.getString("low_result") == SortOrder.BY_LOW.name -> {
+                    todoViewModel.onSortOrderSelected(SortOrder.BY_LOW) }
+                bundle.getString("title_result") == SortOrder.BY_NAME.name -> {
+                    todoViewModel.onSortOrderSelected(SortOrder.BY_NAME) }
+                bundle.getString("date_result") == SortOrder.BY_DATE.name -> {
+                    todoViewModel.onSortOrderSelected(SortOrder.BY_DATE) }
+                else -> { }
+            }
+        }
+
+        childFragmentManager.setFragmentResultListener(
+            "completed_request", viewLifecycleOwner) {_, bundle ->
+            val result = bundle.getBoolean("completed_result")
+            todoViewModel.onHideCompletedClick(result)
+        }
 
         setFragmentResultListener("delete_request") {_, bundle ->
             val result = bundle.getInt("delete_result")
@@ -129,20 +154,21 @@ class ListFragment : Fragment(), SearchView.OnQueryTextListener, TodosAdapter.On
                 }
             }
         }
+
+        bottomSheetFragment = BottomSheetFragment()
         return binding.root
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.menu_priority_low -> { todoViewModel.onSortOrderSelected(SortOrder.BY_LOW) }
+            /*R.id.menu_priority_low -> { todoViewModel.onSortOrderSelected(SortOrder.BY_LOW) }
             R.id.menu_priority_medium -> { todoViewModel.onSortOrderSelected(SortOrder.BY_MEDIUM) }
             R.id.menu_priority_high -> { todoViewModel.onSortOrderSelected(SortOrder.BY_HIGH) }
             R.id.sort_by_title -> { todoViewModel.onSortOrderSelected(SortOrder.BY_NAME) }
             R.id.sort_by_date_created -> { todoViewModel.onSortOrderSelected(SortOrder.BY_DATE) }
             R.id.hide_completed -> {
                 item.isChecked = !item.isChecked
-                todoViewModel.onHideCompletedClick(item.isChecked)
-            }
+                todoViewModel.onHideCompletedClick(item.isChecked) } */
             R.id.delete_all_completed -> {deleteCompletedTasks()}
             R.id.view_type -> {
                 switchLayout()
@@ -192,6 +218,8 @@ class ListFragment : Fragment(), SearchView.OnQueryTextListener, TodosAdapter.On
 
         binding.mainFloatingButton.setOnClickListener(this)
         binding.deleteAllFloatingButton.setOnClickListener(this)
+        binding.filterFloatingButton.setOnClickListener(this)
+        binding.deleteAllCompletedFloatingButton.setOnClickListener(this)
 
         recyclerview = binding.recyclerView
         recyclerview.adapter = adapter
@@ -243,7 +271,19 @@ class ListFragment : Fragment(), SearchView.OnQueryTextListener, TodosAdapter.On
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.main_floating_button -> {onMainButtonClick()}
-            R.id.delete_all_floating_button -> {deleteAll()}
+            R.id.delete_all_floating_button -> {
+                deleteAll()
+                setVisibility(false)
+                setAnimation(false) }
+            R.id.filter_floating_button -> {
+                bottomSheetFragment.show(childFragmentManager,bottomSheetFragment.tag)
+                setVisibility(false)
+                setAnimation(false) }
+            R.id.delete_all_completed_floating_button -> {
+                deleteCompletedTasks()
+                setVisibility(false)
+                setAnimation(false)
+            }
         }
     }
 
@@ -258,10 +298,14 @@ class ListFragment : Fragment(), SearchView.OnQueryTextListener, TodosAdapter.On
             false -> {
                 binding.deleteAllFloatingButton.visibility = View.VISIBLE
                 binding.addFloatingButton.visibility = View.VISIBLE
+                binding.filterFloatingButton.visibility = View.VISIBLE
+                binding.deleteAllCompletedFloatingButton.visibility = View.VISIBLE
             }
             true -> {
                 binding.deleteAllFloatingButton.visibility = View.GONE
                 binding.addFloatingButton.visibility = View.GONE
+                binding.filterFloatingButton.visibility = View.GONE
+                binding.deleteAllCompletedFloatingButton.visibility = View.GONE
             }
         }
     }
@@ -269,13 +313,17 @@ class ListFragment : Fragment(), SearchView.OnQueryTextListener, TodosAdapter.On
     private fun setAnimation(isClicked: Boolean) {
         when (!isClicked) {
             false -> {
+                binding.deleteAllCompletedFloatingButton.startAnimation(fromBottom)
                 binding.deleteAllFloatingButton.startAnimation(fromBottom)
                 binding.addFloatingButton.startAnimation(fromBottom)
+                binding.filterFloatingButton.startAnimation(fromBottom)
                 binding.mainFloatingButton.startAnimation(rotateOpen)
             }
             true -> {
+                binding.deleteAllCompletedFloatingButton.startAnimation(toBottom)
                 binding.deleteAllFloatingButton.startAnimation(toBottom)
                 binding.addFloatingButton.startAnimation(toBottom)
+                binding.filterFloatingButton.startAnimation(toBottom)
                 binding.mainFloatingButton.startAnimation(rotateClose)
             }
         }
@@ -301,9 +349,9 @@ class ListFragment : Fragment(), SearchView.OnQueryTextListener, TodosAdapter.On
         builder.setPositiveButton(getString(R.string.yes)) {_,_ ->
             todoViewModel.deleteCompletedTasks()
         }
-        builder.setNegativeButton("No") {_,_ -> }
-        builder.setTitle("Confirm Deletion")
-        builder.setMessage("Are you you would like to delete all completed tasks?")
+        builder.setNegativeButton(getString(R.string.no)) { _, _ -> }
+        builder.setTitle(getString(R.string.confirm_deletion_prompt))
+        builder.setMessage(getString(R.string.confirm_delete_all_completed_tasks))
         builder.create().show()
     }
 }

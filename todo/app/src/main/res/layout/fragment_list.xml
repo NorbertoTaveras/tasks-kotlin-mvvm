@@ -38,23 +38,24 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_empty_box"
-            android:visibility="visible"
+            android:visibility="gone"
             android:emptyViews="@{sharedViewModel.empty}"
             android:layout_gravity="center"
             app:tint="@color/lightGray"
             app:layout_constraintBottom_toBottomOf="@+id/recyclerView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/recyclerView"
-            app:layout_constraintTop_toTopOf="@+id/recyclerView"/>
+            app:layout_constraintTop_toTopOf="@+id/recyclerView" />
 
         <TextView
             android:id="@+id/warning_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/no_tasks_available"
+            android:text="@string/a_fresh_start"
+            android:textStyle="bold"
             android:alpha="0.5"
             android:textSize="16sp"
-            android:visibility="visible"
+            android:visibility="gone"
             android:emptyViews="@{sharedViewModel.empty}"
             android:layout_gravity="center_vertical|center_horizontal"
             app:layout_anchorGravity="bottom|center"
@@ -62,7 +63,47 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/recyclerView"
             app:layout_constraintTop_toBottomOf="@+id/warning_image" />
+
+        <TextView
+            android:id="@+id/warning_quote"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/anything_to_add"
+            android:alpha="0.5"
+            android:textSize="16sp"
+            android:visibility="gone"
+            android:emptyViews="@{sharedViewModel.empty}"
+            android:layout_gravity="center_vertical|center_horizontal"
+            app:layout_anchorGravity="bottom|center"
+            app:layout_anchor="@id/warning_image"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/recyclerView"
+            app:layout_constraintTop_toBottomOf="@+id/warning_text" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/filter_floating_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="288dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/ic_round_filter_list_24"
+            android:visibility="gone"/>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/delete_all_completed_floating_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="222dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/ic_round_delete_sweep_24"
+            android:visibility="gone"/>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/delete_all_floating_button"

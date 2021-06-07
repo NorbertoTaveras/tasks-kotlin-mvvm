@@ -7,10 +7,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
-import com.norbertotaveras.todo.ADD_TASK_RESULT_OK
-import com.norbertotaveras.todo.DELETE_TASK_RESULT_OK
-import com.norbertotaveras.todo.R
-import com.norbertotaveras.todo.UPDATE_TASK_RESULT_OK
+import com.norbertotaveras.todo.*
 import com.norbertotaveras.todo.repositories.TodoRepository
 import com.norbertotaveras.todo.room.database.TodoDatabase
 import com.norbertotaveras.todo.room.entities.TodoEntity
@@ -108,12 +105,6 @@ class TodoViewModel @Inject constructor(application: Application, private val pr
     fun onHideCompletedClick(hideCompleted: Boolean) {
         viewModelScope.launch {
             preferencesManager.updateHideCompleted(hideCompleted)
-        }
-    }
-
-    fun onSpanCountClick(spanCount: Int) {
-        viewModelScope.launch {
-            preferencesManager.updateSpanCount(spanCount)
         }
     }
 

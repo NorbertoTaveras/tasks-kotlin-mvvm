@@ -21,7 +21,8 @@
     <fragment
         android:id="@+id/updateFragment"
         android:name="com.norbertotaveras.todo.fragments.update.UpdateFragment"
-        android:label="Update Task">
+        android:label="Update Task"
+        tools:layout="@layout/fragment_update">
         <action
             android:id="@+id/action_updateFragment_to_listFragment"
             app:destination="@id/listFragment"
@@ -53,4 +54,17 @@
             app:popEnterAnim="@anim/from_left"
             app:popExitAnim="@anim/to_right" />
     </fragment>
+    <dialog
+        android:id="@+id/bottomSheetFragment"
+        android:name="com.norbertotaveras.todo.fragments.bottomsheet.BottomSheetFragment"
+        android:label="BottomSheetFragment"
+        tools:layout="@layout/fragment_task_bottom_sheet">
+        <action
+            android:id="@+id/action_bottomSheetFragment_to_listFragment"
+            app:destination="@id/listFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popUpTo="@id/listFragment"
+            app:popUpToInclusive="true"/>
+    </dialog>
 </navigation>

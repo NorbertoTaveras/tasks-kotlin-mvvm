@@ -51,7 +51,7 @@ interface TodoDao {
     @Query("SELECT * FROM table_todos WHERE (completed != :hideCompleted or completed = 0) ORDER BY title")
     fun title(hideCompleted: Boolean): Flow<MutableList<TodoEntity>>
 
-    @Query("SELECT * FROM table_todos WHERE (completed != :hideCompleted or completed = 0) ORDER BY created")
+    @Query("SELECT * FROM table_todos WHERE (completed != :hideCompleted or completed = 0) ORDER BY created DESC")
     fun date(hideCompleted: Boolean): Flow<MutableList<TodoEntity>>
 
     @Query("DELETE FROM table_todos WHERE completed = 1")
