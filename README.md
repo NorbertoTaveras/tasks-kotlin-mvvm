@@ -50,4 +50,5 @@ Go to the [Releases](https://github.com/NorbertoTaveras/tasks-kotlin-mvvm/releas
     <img src="/assets/screenshot_4.png" width="25%"/>
     <img src="/assets/screenshot_5.png" width="25%"/>
     <img src="/assets/screenshot_6.png" width="25%"/>
+    <img src="/assets/screenshot_7.png" width="25%"/>
 </p>
