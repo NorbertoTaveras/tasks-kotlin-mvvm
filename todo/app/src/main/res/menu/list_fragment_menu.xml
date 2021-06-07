@@ -41,10 +41,10 @@
         android:checkable="true"
         app:showAsAction="never"/> -->
 
-    <item
+    <!--<item
         android:id="@+id/delete_all_completed"
         android:title="@string/delete_all_completed"
-        app:showAsAction="never"/>
+        app:showAsAction="never"/> -->
 
     <item
         android:id="@+id/view_type"

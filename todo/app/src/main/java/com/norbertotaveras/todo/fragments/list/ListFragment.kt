@@ -169,7 +169,7 @@ class ListFragment : Fragment(), SearchView.OnQueryTextListener, TodosAdapter.On
             R.id.hide_completed -> {
                 item.isChecked = !item.isChecked
                 todoViewModel.onHideCompletedClick(item.isChecked) } */
-            R.id.delete_all_completed -> {deleteCompletedTasks()}
+            //R.id.delete_all_completed -> {deleteCompletedTasks()}
             R.id.view_type -> {
                 switchLayout()
                 switchIcon(item)
